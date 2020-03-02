@@ -12,42 +12,38 @@ func main() {
 		{
 			Origin:      "Barcelona",
 			Destination: "Gerona Airport",
+			Trip:        card_sort.BUS,
 			Seat:        "",
-			Gate:        "",
-			Vessel:      "airport bus",
-			MetaData: card_sort.TripMetadata{
-				Trip: card_sort.BUS,
-			},
+			VesselInfo:  "airport bus",
+			Metadata:    map[string]string{},
 		},
 		{
 			Origin:      "Stockholm",
 			Destination: "New York JFK",
+			Trip:        card_sort.FLIGHT,
 			Seat:        "7B",
-			Gate:        "22",
-			Vessel:      "SK22",
-			MetaData: card_sort.TripMetadata{
-				Trip: card_sort.FLIGHT,
+			VesselInfo:  "SK22",
+			Metadata: map[string]string{
+				"gate": "22",
 			},
 		},
 		{
 			Origin:      "Madrid",
 			Destination: "Barcelona",
+			Trip:        card_sort.TRAIN,
 			Seat:        "45B",
-			Gate:        "",
-			Vessel:      "78A",
-			MetaData: card_sort.TripMetadata{
-				Trip: card_sort.TRAIN,
-			},
+			VesselInfo:  "78A",
+			Metadata:    map[string]string{},
 		},
 		{
-			Origin:        "Gerona Airport",
-			Destination:   "Stockholm",
-			Seat:          "3A",
-			Gate:          "45B",
-			Vessel:        "SK455",
-			TicketCounter: "344",
-			MetaData: card_sort.TripMetadata{
-				Trip: card_sort.FLIGHT,
+			Origin:      "Gerona Airport",
+			Destination: "Stockholm",
+			Trip:        card_sort.FLIGHT,
+			Seat:        "3A",
+			VesselInfo:  "SK455",
+			Metadata: map[string]string{
+				"gate":           "45B",
+				"ticket counter": "344",
 			},
 		},
 	}
