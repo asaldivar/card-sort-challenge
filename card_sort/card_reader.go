@@ -7,7 +7,7 @@ import "fmt"
 //
 // TODO: Change this interface to conform to io.Reader pattern.
 type CardReader interface {
-	ReadCards(cardMap map[string]BoardingCard, origin string)
+	ReadCards(cardMap map[string]BoardingCard, origin BoardingCard) []BoardingCard
 }
 
 type reader struct {
@@ -17,10 +17,13 @@ func NewCardReader() CardReader {
 	return reader{}
 }
 
-func (r reader) ReadCards(cardMap map[string]BoardingCard, origin string) {
-	next := origin
-	for i := 0; i < len(cardMap); i++ {
-		fmt.Println(cardMap[next])
-		next = cardMap[next].Destination
+func (r reader) ReadCards(cardMap map[string]BoardingCard, originCard BoardingCard) []BoardingCard {
+	output := []BoardingCard{originCard}
+	next := originCard.Origin
+	fmt.Println(len(cardMap))
+	for i := 0; i < len(cardMap)-1; i++ {
+		output = append(output, cardMap[next])
+		next = cardMap[next].Origin
 	}
+	return output
 }

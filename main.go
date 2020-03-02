@@ -1,6 +1,10 @@
 package main
 
-import "github.com/kylechadha/card-sort-challenge/card_sort"
+import (
+	"fmt"
+
+	"github.com/kylechadha/card-sort-challenge/card_sort"
+)
 
 func main() {
 	sampleInput := []card_sort.BoardingCard{
@@ -47,4 +51,9 @@ func main() {
 		},
 	}
 
+	s := card_sort.New()
+	sortMap, origin := s.SortCards(sampleInput)
+	r := card_sort.NewCardReader()
+	output := r.ReadCards(sortMap, origin)
+	fmt.Println(output)
 }

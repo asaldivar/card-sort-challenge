@@ -3,7 +3,7 @@ package card_sort
 // CardSorter accepts a slice of cards and sorts them
 // in O(|V|+|E|) time and O(|V|+|E|) space.
 type CardSorter interface {
-	SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard, origin string)
+	SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard, origin BoardingCard)
 }
 
 type sorter struct {
@@ -11,7 +11,7 @@ type sorter struct {
 }
 
 func New() CardSorter {
-	return sorter{sortMap: make(map[string]BoardingCard)}
+	return &sorter{sortMap: make(map[string]BoardingCard)}
 }
 
 // Pseudocode
@@ -23,7 +23,7 @@ func New() CardSorter {
 // - I think we can get around this by reversing the graph
 //   and just seeing if there's any origins that aren't in
 //   the reverse graph (meaning they have no edges coming out)
-func (s sorter) SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard, origin string) {
+func (s sorter) SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard, originCard BoardingCard) {
 	// Linear time and space.
 	cardMap := make(map[string]BoardingCard)
 	for _, card := range cards {
@@ -41,9 +41,9 @@ func (s sorter) SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard
 	// assume the input is a valid connected DAG?
 	for orig := range cardMap {
 		if _, ok := reverseGraph[orig]; !ok {
-			origin = orig
+			return s.sortMap, cardMap[orig]
 		}
 	}
-
-	return sortMap, origin
+	// Not found, return an err
+	return nil, BoardingCard{}
 }
