@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kylechadha/card-sort-challenge/card_sort"
 )
 
 func main() {
-	sampleInput := []card_sort.BoardingCard{
+	input := []*card_sort.BoardingCard{
 		{
 			Origin:      "Barcelona",
 			Destination: "Gerona Airport",
@@ -52,8 +53,13 @@ func main() {
 	}
 
 	s := card_sort.New()
-	sortMap, origin := s.SortCards(sampleInput)
-	r := card_sort.NewCardReader()
-	output := r.ReadCards(sortMap, origin)
-	fmt.Println(output)
+	output, err := s.Sort(input)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Sorting could not be completed: %v\n", err)
+		os.Exit(1)
+	}
+
+	for _, card := range output {
+		fmt.Println(*card)
+	}
 }

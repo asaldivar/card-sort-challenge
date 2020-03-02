@@ -7,8 +7,9 @@ const (
 )
 
 type BoardingCard struct {
-	Origin        string
-	Destination   string
+	Origin      string
+	Destination string
+
 	Seat          string
 	Gate          string
 	Vessel        string
