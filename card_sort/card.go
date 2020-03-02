@@ -16,9 +16,12 @@ type BoardingCard struct {
 	MetaData      TripMetadata
 }
 
+// TODO: Replace TripMetadata struct with MetaProvider
+// interface that can hold any metadata for trips.
 type MetaProvider interface {
 	GetAll()
 	Get(name string)
+	Trip() TripType
 }
 
 type TripMetadata struct {
