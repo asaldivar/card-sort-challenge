@@ -1,7 +1,7 @@
 package card_sort
 
 // CardSorter accepts a slice of cards and sorts them
-// with O(n) time and O(n) space.
+// in O(|V|+|E|) time and O(|V|+|E|) space.
 type CardSorter interface {
 	SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard, origin string)
 }
@@ -39,7 +39,7 @@ func (s sorter) SortCards(cards []BoardingCard) (sortMap map[string]BoardingCard
 
 	// TODO: Do we need to handle cycles? Are there islands? Ie: Can we always
 	// assume the input is a valid connected DAG?
-	for orig, destCard := range cardMap {
+	for orig := range cardMap {
 		if _, ok := reverseGraph[orig]; !ok {
 			origin = orig
 		}
